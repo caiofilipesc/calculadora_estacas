@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Distâncias entre Estacas</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body {
+            font-family: Arial Black, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: url('https://www.revestpaper.com.br/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/s/c/sc303-03_c_pia_1.jpg'); 
+            background-size: cover;
+            background-position: center; 
+            background-repeat: no-repeat; 
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        label, input {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        button {
+            background-color: #808080;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #D3D3D3;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Calculadora de Estacas do Caião</h1>
+
+    <label for="estaca1">Primeira Estaca :</label>
+    <input type="number" id="estaca1" placeholder="Número da estaca 1">
+
+    <label for="metro1">Metros adicionais da estaca 1 :</label>
+    <input type="number" id="metro1" placeholder="Metros adicionais da estaca 1">
+
+    <label for="estaca2">Segunda Estaca :</label>
+    <input type="number" id="estaca2" placeholder="Número da estaca 2">
+
+    <label for="metro2">Metros adicionais da estaca 2 :</label>
+    <input type="number" id="metro2" placeholder="Metros adicionais da estaca 2">
+
+    <button onclick="calcularDistancia()">Calcular Distância</button>
+
+    <div id="resultado"></div>
+</div>
+
+<script>
+    function calcularDistancia() {
+        // Obtendo os valores inseridos pelo usuário
+        var estaca1 = parseInt(document.getElementById("estaca1").value);
+        var metro1 = parseInt(document.getElementById("metro1").value);
+        var estaca2 = parseInt(document.getElementById("estaca2").value);
+        var metro2 = parseInt(document.getElementById("metro2").value);
+
+        // Verificando se todos os valores foram preenchidos
+        if (isNaN(estaca1) || isNaN(metro1) || isNaN(estaca2) || isNaN(metro2)) {
+            document.getElementById("resultado").innerHTML = "Por favor, preencha todos os campos.";
+            return;
+        }
+
+        // Calculando a distância entre as estacas
+        var distancia = ((estaca2 * 20) + metro2) - ((estaca1 * 20) + metro1);
+
+        // Exibindo o resultado
+        document.getElementById("resultado").innerHTML = "A distância entre as estacas é: " + distancia + " metros.";
+    }
+
+    // Registrando o Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+                console.log('ServiceWorker registrado com sucesso:', registration);
+            }).catch((error) => {
+                console.log('Falha ao registrar o ServiceWorker:', error);
+            });
+        });
+    }
+</script>
+
+</body>
+</html>
